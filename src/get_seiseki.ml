@@ -10,7 +10,7 @@ let gakusei1 = {namae="asai"; tensuu=70; seiseki="B"}
 let gakusei2 = {namae="tanaka"; tensuu=90; seiseki="A"}
 let gakusei3 = {namae="yamada"; tensuu=60; seiseki="C"}
 
-(* *)
+(* データが無いことを表す例外 *)
 exception DataNashi
 
 (* 目的：指定された学生の成績を返す *)
