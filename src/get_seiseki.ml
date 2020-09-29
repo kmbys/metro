@@ -10,10 +10,14 @@ let gakusei1 = {namae="asai"; tensuu=70; seiseki="B"}
 let gakusei2 = {namae="tanaka"; tensuu=90; seiseki="A"}
 let gakusei3 = {namae="yamada"; tensuu=60; seiseki="C"}
 
+(* *)
+exception DataNashi
+
 (* 目的：指定された学生の成績を返す *)
-(* get_seiseki : string -> gakusei_t list -> string option *)
+(* 見つからなかったら例外 DataNashi を起こす*)
+(* get_seiseki : string -> gakusei_t list -> string *)
 let rec get_seiseki name lst = match lst with
-    [] -> None
+    [] -> raise DataNashi
     | {namae=n; tensuu=t; seiseki=s} :: rest ->
-        if name = n then Some (s)
-        else get_seiseki rest
+        if name = n then s
+        else get_seiseki name rest
