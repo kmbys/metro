@@ -333,6 +333,7 @@ let global_ekikan_list = [
 ]
 
 (* 目的：ローマ字の駅名を漢字に変換する *)
+(* 該当の駅名がなかった場合には空文字を返す *)
 (* romaji_to_kanji : string -> ekimei_t list -> string *)
 let rec romaji_to_kanji romaji lst = match lst with
     [] -> ""
@@ -344,3 +345,18 @@ let rec romaji_to_kanji romaji lst = match lst with
 (* テスト *)
 let test1 = romaji_to_kanji "myogadani" global_ekimei_list = "茗荷谷"
 let test2 = romaji_to_kanji "shiretoko" global_ekimei_list = ""
+
+(* 目的：漢字の駅名を2つから2駅間の距離を返す *)
+(* 2駅が直接つながっていないときはinfinityを返す *)
+(* get_ekikan_kyori : string -> string -> ekikan_t list -> float *)
+let rec get_ekikan_kyori ekimei1 ekimei2 lst = match lst with
+    [] -> infinity
+    | {kiten=ki; shuten=shu; keiyu=kei; kyori=kyo; jikan=ji} :: rest ->
+        if (ekimei1 = ki && ekimei2 = shu) || (ekimei1 = shu && ekimei2 = ki)
+            then kyo
+            else get_ekikan_kyori ekimei1 ekimei2 rest
+
+(* テスト *)
+let test3 = get_ekikan_kyori "茗荷谷" "新大塚" global_ekikan_list = 1.2
+let test4 = get_ekikan_kyori "新大塚" "茗荷谷" global_ekikan_list = 1.2
+let test5 = get_ekikan_kyori "新大塚" "東京" global_ekikan_list = infinity
