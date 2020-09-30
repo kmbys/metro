@@ -332,3 +332,15 @@ let global_ekikan_list = [
 {kiten="営団成増"; shuten="和光市"; keiyu="有楽町線"; kyori=2.1; jikan=3};
 ]
 
+(* 目的：ローマ字の駅名を漢字に変換する *)
+(* romaji_to_kanji : string -> ekimei_t list -> string *)
+let rec romaji_to_kanji romaji lst = match lst with
+    [] -> ""
+    | {kanji=kan; kana=hira; romaji=roma; shozoku=s} :: rest ->
+        if romaji = roma
+            then kan
+            else romaji_to_kanji romaji rest
+
+(* テスト *)
+let test1 = romaji_to_kanji "myogadani" global_ekimei_list = "茗荷谷"
+let test2 = romaji_to_kanji "shiretoko" global_ekimei_list = ""
