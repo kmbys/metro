@@ -1,5 +1,5 @@
 (* 駅と駅の接続情報を表す型 *)
-type t ={
+type ekikan_t ={
     kiten : string; (* 起点の駅名 *)
     shuten : string; (* 終点の駅名 *)
     keiyu : string; (* 経由する路線名 *)
